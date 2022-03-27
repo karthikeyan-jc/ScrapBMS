@@ -1,3 +1,6 @@
 .ipynb_checkpoints
 __pycache__
 geckodriver.log
+log.txt
+show scrapper.log
+theatre scrapper.log
