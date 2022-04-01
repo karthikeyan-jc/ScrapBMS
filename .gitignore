@@ -2,5 +2,4 @@
 __pycache__
 geckodriver.log
 log.txt
-show scrapper.log
-theatre scrapper.log
+scrapper.log
