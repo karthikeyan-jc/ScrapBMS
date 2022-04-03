@@ -34,7 +34,7 @@ def theatre_scrapper():
     now = datetime.datetime.now()
     
     options=Options()
-    options.headless = True
+    #options.headless = True
     driver = webdriver.Firefox(options=options)
     explore_link='https://in.bookmyshow.com/explore/home/'
 
@@ -47,7 +47,7 @@ def theatre_scrapper():
     try:
         logging.warning('THEATRE SCRAPPING STARTED')
         for row in districts:
-            dist_id=row['id']
+            dist_id=row['district_id']
             logging.warning('SCRAPPING THEATRES IN %s',row['dist_name'])
             driver.get(explore_link+row['link'])
             element = driver.find_element(by=By.CLASS_NAME,value="sc-iwsKbI.sc-bmyXtO.fpdEds")

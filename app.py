@@ -1,28 +1,22 @@
 from flask import Flask
-from flask import request
-import mysql.connector
 from mysql.connector import Error
 from datetime import datetime
-import json
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-
-from flask_apscheduler import APScheduler
 import theatre_scrapper
 import show_scrapper
 
+def server_shutdown():
+    print('BYE BYE')
+    sched.shutdown()
+
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(theatre_scrapper.theatre_scrapper,'interval',seconds=5)
+sched.add_job(show_scrapper.show_scrapper,'interval',seconds=7)
+sched.start()
+atexit.register(server_shutdown)
+
 app = Flask(__name__)
 
-if (__name__ == "__main__"):
-    scheduler = APScheduler()
-    scheduler.add_job(func=theatre_scrapper.theatre_scrapper, trigger='interval', id='theatre_scrapper',minutes=2)
-    scheduler.add_job(func=show_scrapper.show_scrapper, trigger='interval', id='show_scrapper',minutes=2)
-    scheduler.start()
-    atexit.register(lambda: scheduler.shutdown())
-    app.run(port = 8000)
-
-
-@app.route('/moviecollection',methods=['GET'])
-def movie_collection():
-    return 'Contract not yet defined :)'
-
+if __name__ == "__main__":
+    app.run()
