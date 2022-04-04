@@ -34,7 +34,7 @@ def theatre_scrapper():
     now = datetime.datetime.now()
     
     options=Options()
-    #options.headless = True
+    options.headless = True
     driver = webdriver.Firefox(options=options)
     explore_link='https://in.bookmyshow.com/explore/home/'
 

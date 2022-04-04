@@ -17,7 +17,7 @@ from selenium.common.exceptions import TimeoutException
 
 from bs4 import BeautifulSoup
 options=Options()
-#options.headless = True
+options.headless = True
 driver = None
 logging.basicConfig(filename='scrapper.log',filemode='a', format='%(asctime)s|%(name)s|%(levelname)s|%(message)s')
 explore_link='https://in.bookmyshow.com/explore/movies-'
