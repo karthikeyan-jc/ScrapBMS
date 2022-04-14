@@ -1,4 +1,3 @@
-import mysql.connector
 from mysql.connector import Error
 from mysql.connector import IntegrityError
 from bs4 import BeautifulSoup
@@ -10,25 +9,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
-import configparser
 import logging
 import datetime
 import util
 
 theatre_query_template="insert into theatres(dist_id,theatre_id,theatre_name) values({},\'{}\',\'{}\');"    
 logging.basicConfig(filename='scrapper.log',filemode='a', format='%(asctime)s|%(name)s|%(levelname)s|%(message)s')
-
-def get_connection():
-    config= configparser.ConfigParser()
-    config.read('config.ini')
-    config_info=config['mysqlDB']
-
-    connection = mysql.connector.connect(host=config_info['host'],
-                                         database=config_info['database'],
-                                         user=config_info['user'],
-                                         password=config_info['password'])
-    return connection
-
 
 def theatre_scrapper():
     now = datetime.datetime.now()
@@ -38,7 +24,7 @@ def theatre_scrapper():
     driver = webdriver.Firefox(options=options)
     explore_link='https://in.bookmyshow.com/explore/home/'
 
-    connection = get_connection()
+    connection = util.get_connection()
     cursor = connection.cursor(dictionary=True)
     query="select * from districts"
     cursor.execute(query)
