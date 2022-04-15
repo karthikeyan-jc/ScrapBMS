@@ -5,6 +5,7 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 import theatre_scrapper
+import json_updater
 import threading
 
 def server_shutdown():
@@ -30,6 +31,7 @@ def initiate_showscrapping_threads():
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(theatre_scrapper.theatre_scrapper,'interval',minutes=720)
 sched.add_job(initiate_showscrapping_threads,'interval',minutes=30)
+sched.add_job(json_updater.update_json,'interval',minutes=160)
 sched.start()
 atexit.register(server_shutdown)
 

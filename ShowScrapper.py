@@ -98,7 +98,7 @@ class ShowScrapper:
                     logging.warning("INSERTING NEW SHOW %s %s %s",movie_id,theatre_id,show_id)
                 except Error:
                     logging.warning("SHOW ALREADY PRESENT %s %s %s",movie_id,theatre_id,show_id)
-                    query="update shows set json_data=\'{}\' where movie_id=\'{}\' and show_id=\'{}\';".format(response.text,movie_id,show_id)
+                    query="update shows set json_data=\'{}\' where movie_id=\'{}\' and show_id=\'{}\' and theatre_id=\'{}\';".format(response.text,movie_id,show_id,theatre_id)
                     logging.warning("UPDATING SHOW %s %s %s",movie_id,theatre_id,show_id)
                     try:
                         cursor.execute(query)
