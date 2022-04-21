@@ -30,8 +30,8 @@ def initiate_showscrapping_threads():
 
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(theatre_scrapper.theatre_scrapper,'interval',minutes=720)
-sched.add_job(initiate_showscrapping_threads,'interval',minutes=30)
-sched.add_job(json_updater.update_json,'interval',minutes=160)
+sched.add_job(initiate_showscrapping_threads,'interval',minutes=15)
+sched.add_job(json_updater.update_json,'interval',minutes=30)
 sched.start()
 atexit.register(server_shutdown)
 

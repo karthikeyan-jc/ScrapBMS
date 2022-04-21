@@ -92,7 +92,10 @@ class ShowScrapper:
                 show_id=j.get('data-session-id')
                 api_request = "https://in.bookmyshow.com/serv/getData?cmd=GETSHOWINFOJSON&vid={}&ssid={}&format=json".format(theatre_id,show_id) 
                 response=requests.get(api_request)
-                query="insert into shows(dist_id,movie_id,theatre_id,show_id,cut_off_time,json_data) values({},\'{}\',\'{}\',\'{}\',\'{}\',\'{}\');".format(dist_id,movie_id,theatre_id,show_id,cut_off_time,response.text)
+                if(response.status_code!=200):
+                    logging.warning("API CALL FAILED. SKIPPING THE SHOW : %s %s %s",movie_id,theatre_id,show_id)
+                    continue
+                query="insert into shows(dist_id,movie_id,theatre_id,show_id,cut_off_time,json_data) values({},\'{}\',\'{}\',\'{}\',\'{}\',\'{}\');".format(dist_id,movie_id,theatre_id,show_id,cut_off_time,repr(response.text)[1:-1])
                 try:
                     cursor.execute(query)
                     logging.warning("INSERTING NEW SHOW %s %s %s",movie_id,theatre_id,show_id)
@@ -145,7 +148,12 @@ class ShowScrapper:
                         continue
                     self.driver.get(link)
                     buttons=self.driver.find_elements(by=By.ID,value="page-cta-container")
-                    book_ticket=buttons[0]
+                    book_ticket=None
+                    try:
+                        book_ticket=buttons[0]
+                    except:
+                        logging.warning('BOOK TICKET BUTTON NOT FOUND FOR LINK : %s',link)
+                        continue
                     if(book_ticket is None):
                         logging.warning('BOOK TICKET BUTTON NOT FOUND FOR LINK : %s',link)
                         continue
