@@ -55,6 +55,7 @@ def theatre_scrapper():
                     logging.warning("NEW THEATRE ADDED %s",theatre_name)
                 except IntegrityError:
                     logging.warning("THEATRE %s ALREADY PRESENT",theatre_name)
+                    continue
                 except Error:
                     logging.exception("DATABASE ERROR WHILE INSERTING THEATRE %s",theatre_name)
                     continue

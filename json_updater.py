@@ -39,7 +39,7 @@ def update_json():
                 new_json=json.loads(response.text)
                 
                 if(len(existing_json['BookMyShow']['arrShowInfo'])==len(new_json['BookMyShow']['arrShowInfo'])):
-                    query="update shows set json_data=\'{}\' where movie_id=\'{}\' and show_id=\'{}\' and theatre_id=\'{}\';".format(response.text,movie_id,show_id,theatre_id)
+                    query="update shows set json_data=\'{}\' where movie_id=\'{}\' and show_id=\'{}\' and theatre_id=\'{}\';".format(repr(response.text)[1:-1],movie_id,show_id,theatre_id)
                     cursor.execute(query)
                     connection.commit()
                 else:
