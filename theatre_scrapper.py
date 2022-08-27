@@ -1,13 +1,9 @@
 from mysql.connector import Error
 from mysql.connector import IntegrityError
-from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
 
 import logging
 import datetime
@@ -36,11 +32,11 @@ def theatre_scrapper():
             dist_id=row['district_id']
             logging.warning('SCRAPPING THEATRES IN %s',row['dist_name'])
             driver.get(explore_link+row['link'])
-            element = driver.find_element(by=By.CLASS_NAME,value="sc-iwsKbI.sc-bmyXtO.fpdEds")
+            element = driver.find_element(by=By.CLASS_NAME,value="sc-bZQynM.sc-dEoRIm.hSiMIq")
             util.click(driver,element)
-            element = driver.find_element(by=By.CLASS_NAME,value="sc-dphlzf.jglLKP")
+            element = driver.find_element(by=By.CLASS_NAME,value="sc-cfWELz.dyuKpT")
             util.click(driver,element)
-            theatres=driver.find_elements(by=By.CLASS_NAME,value="sc-hkbPbT.hpAoQw")
+            theatres=driver.find_elements(by=By.CLASS_NAME,value="sc-lnrBVv.gpuQNF")
             new_theatres=driver.find_elements(by=By.CLASS_NAME,value="sc-hkbPbT.iIDrmE")
             theatres.extend(new_theatres)
     
