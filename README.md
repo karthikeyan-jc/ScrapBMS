@@ -16,3 +16,4 @@ Apart from the two bots there is also another periodic job which updates the alr
 ```sh
    python app.py
 ```
+6. Refer my other repo [ScrapBmsApis](https://github.com/karthikeyan-jc/ScrapBmsApis) to setup another flask application that provides the endpoints to get meaningful insights from the scraped booking information.
